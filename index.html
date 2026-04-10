@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>CubeOS — 64-битная домашняя операционная система</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="hero">
+        <div class="logo-area">
+            <h1><i class="fas fa-cube"></i> CubeOS</h1>
+            <p>64-битная операционная система, написанная с нуля на NASM · Домашняя разработка</p>
+            <div style="margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap;">
+                <span class="version-tag"><i class="fas fa-code-branch"></i> Стабильный релиз 64-bit</span>
+                <span class="version-tag"><i class="fas fa-calendar-alt"></i> Начало проекта: 27 января 2026</span>
+                <span class="version-tag"><i class="fab fa-github"></i> v0.6-dev (ATA + FAT32)</span>
+            </div>
+        </div>
+        <div class="badge-stable">
+            <i class="fas fa-check-circle"></i> CubeOS v0.4 — полностью рабочая версия
+        </div>
+    </div>
+
+    <div class="glass-card" style="padding: 2rem; margin-bottom: 2.5rem;">
+        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: space-between;">
+            <div style="flex:2">
+                <h2 style="font-size: 1.8rem; font-weight: 700;"><i class="fas fa-microchip"></i> CubeOS — сделано с нуля</h2>
+                <p style="margin-top: 0.6rem; font-size: 1.05rem;">Моя собственная операционная система, написанная полностью на ассемблере NASM. Проект начинался как эксперимент, но вырос в полноценную 64-битную ОС с трёхступенчатым загрузчиком, ATA PIO драйвером, поддержкой FAT32 (в разработке) и прототипным графическим интерфейсом.</p>
+                <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="https://disk.yandex.ru/d/xyfmS7OfaYtxXQ" class="button-download"><i class="fas fa-download"></i> Скачать cubeos.img (v0.5-dev)</a>
+                    <a href="https://github.com/cubeweb-lab/CubeOS" target="_blank" style="background: rgba(255,255,255,0.05); border: 1px solid #3f8eff;" class="button-download"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+            </div>
+            <div style="flex:1; text-align: center;">
+                <i class="fas fa-cube" style="font-size: 5rem; color: #3a86ff; text-shadow: 0 0 12px #1e90ff;"></i>
+                <p style="margin-top: 0.5rem;">x86_64 · Long Mode</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2col">
+        <div class="feature-block">
+            <div class="feature-title"><i class="fas fa-desktop"></i> 📋 Системные требования</div>
+            <ul style="list-style: none; margin-top: 10px;">
+                <li><i class="fas fa-microchip"></i>  Процессор: x86_64 (Long Mode)</li>
+                <li><i class="fas fa-memory"></i>  Память: от 8 МБ (рекомендуется 64-128 МБ)</li>
+                <li><i class="fas fa-hdd"></i>  Диск: 20 МБ свободного места</li>
+                <li><i class="fas fa-laptop-code"></i>  Платформа: QEMU, VirtualBox, реальное железо (UEFI/BIOS)</li>
+            </ul>
+        </div>
+        <div class="feature-block">
+            <div class="feature-title"><i class="fas fa-cogs"></i> 🛠️ Технологии и особенности</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px;">
+                <span class="cmd-item"><i class="fas fa-code"></i> NASM (ассемблер)</span>
+                <span class="cmd-item"><i class="fas fa-microchip"></i> 64-bit Long Mode</span>
+                <span class="cmd-item"><i class="fas fa-tv"></i> VGA текстовый режим 80x25</span>
+                <span class="cmd-item"><i class="fas fa-window-maximize"></i> GUI-прототип</span>
+                <span class="cmd-item"><i class="fas fa-hdd"></i> ATA PIO драйвер</span>
+                <span class="cmd-item"><i class="fas fa-folder-open"></i> FAT32 парсер (dev)</span>
+            </div>
+            <hr style="margin: 1rem 0;">
+            <div><i class="fas fa-cube"></i>  Трёхступенчатый загрузчик</div>
+            <div><i class="fas fa-terminal"></i>  Shell с 14 командами</div>
+        </div>
+    </div>
+
+    <!-- ТЕРМИНАЛ-ТРЕНАЖЁР В СТИЛЕ МОНИТОРА -->
+    <div class="glass-card" style="padding: 1.5rem; margin-bottom: 2rem;">
+        <h3 style="display: flex; gap: 12px; align-items: center; margin-bottom: 1rem;">
+            <i class="fas fa-laptop-code"></i> 🖥️ CubeOS Shell — интерактивный терминал
+        </h3>
+        <p style="margin-bottom: 1rem;">Точная эмуляция командной строки CubeOS v0.6 (ATA + FAT32). Все команды работают как в реальной ОС.</p>
+        
+        <div class="terminal-monitor">
+            <div class="terminal-header">
+                <div class="window-controls">
+                    <div class="window-btn"></div>
+                    <div class="window-btn min"></div>
+                    <div class="window-btn max"></div>
+                </div>
+                <div class="terminal-title">cubeos@qemu: ~</div>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-output" id="terminalOutput">
+                    <div class="terminal-line">==============================</div>
+                    <div class="terminal-line">     CubeOS v0.6 (ATA+FAT32)  </div>
+                    <div class="terminal-line">==============================</div>
+                    <div class="terminal-line">Type 'help' for available commands.</div>
+                    <div class="terminal-line">---</div>
+                </div>
+                <div class="terminal-input-line">
+                    <span class="terminal-prompt">cubeos&gt;</span>
+                    <input type="text" id="terminalInput" class="terminal-input" placeholder="введите команду..." autocomplete="off" spellcheck="false">
+                    <button id="runCmdBtn" class="control-btn" style="padding: 0.2rem 0.8rem; background:#1f3a5f; border:none; border-radius:20px; color:white; cursor:pointer;">↵</button>
+                </div>
+                <div class="terminal-status">
+                    <i class="fas fa-info-circle"></i> Доступно 14 команд: help, ver, about, cls, uptime, mem, cpu, dice, flip, gui, fat32, dir, reboot, shutdown
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 0.8rem; font-size: 0.8rem; color: #9bb4e0; text-align: center;">
+            <i class="fas fa-terminal"></i> Команды reboot/shutdown в демо-режиме не перезагружают страницу. GUI — прототип, показывает оповещение.
+        </p>
+    </div>
+
+    <div class="grid-2col">
+        <div class="feature-block">
+            <div class="feature-title"><i class="fas fa-list"></i> 🎮 Команды шелла (14 команд)</div>
+            <div class="cmd-grid">
+                <div class="cmd-item"><i class="fas fa-eraser"></i> cls</div>
+                <div class="cmd-item"><i class="fas fa-question-circle"></i> help</div>
+                <div class="cmd-item"><i class="fas fa-info-circle"></i> ver</div>
+                <div class="cmd-item"><i class="fas fa-address-card"></i> about</div>
+                <div class="cmd-item"><i class="fas fa-sync-alt"></i> reboot</div>
+                <div class="cmd-item"><i class="fas fa-power-off"></i> shutdown</div>
+                <div class="cmd-item"><i class="fas fa-clock"></i> uptime</div>
+                <div class="cmd-item"><i class="fas fa-microchip"></i> mem</div>
+                <div class="cmd-item"><i class="fas fa-tachometer-alt"></i> cpu</div>
+                <div class="cmd-item"><i class="fas fa-dice-d6"></i> dice</div>
+                <div class="cmd-item"><i class="fas fa-coins"></i> flip</div>
+                <div class="cmd-item"><i class="fas fa-desktop"></i> gui</div>
+                <div class="cmd-item"><i class="fas fa-hdd"></i> fat32</div>
+                <div class="cmd-item"><i class="fas fa-list"></i> dir</div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.85rem;"><i class="fas fa-info-circle"></i> about — неофициальный neofetch, gui — запускает прототип оконного менеджера (preview).</p>
+        </div>
+        <div class="feature-block">
+            <div class="feature-title"><i class="fas fa-chart-line"></i> 📊 Версии и планы</div>
+            <div><span class="version-tag" style="background: #0e3820;">✔ v0.4 — Стабильная</span> (рекомендуется)</div>
+            <div style="margin-top: 8px;"><span class="version-tag">🚧 v0.5-dev</span> — ATA драйвер, улучшенный ввод-вывод</div>
+            <div><span class="version-tag">⚡ v0.6-dev</span> — Экспериментальная FAT32 / CubeFS</div>
+            <hr>
+            <div><i class="fas fa-cube"></i> <strong>🔧 Планы на будущее</strong></div>
+            <ul style="margin-top: 8px; margin-left: 1.2rem;">
+                <li>✓ Полноценная поддержка FAT32 / CubeFS</li>
+                <li>✓ Свой ATA/IDE драйвер</li>
+                <li>✓ Графический режим VESA</li>
+                <li>✓ Мультизагрузка (Linux, Windows)</li>
+                <li>✓ Сетевой стек (планируется)</li>
+                <li>✓ Стабильный GUI</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="glass-card" style="padding: 1.5rem; margin-bottom: 1rem;">
+        <h3><i class="fas fa-download"></i> 📥 Установка и запуск</h3>
+        <pre style="margin-top: 0.5rem;">
+# 1. Скачать образ cubeos.img (v0.4 стабильный)
+# 2. Запустить в QEMU:
+qemu-system-x86_64 -drive format=raw,file=cubeos.img -m 128M
+
+# Или на Android через Limbo x86
+# Запись на флешку (осторожно!)
+dd if=cubeos.img of=/dev/sdX bs=512
+
+# Сборка из исходников (Windows):
+# build.bat (требуется NASM)</pre>
+        <p style="margin-top: 0.8rem;"><i class="fas fa-play-circle"></i> Также поддерживается VirtualBox и реальное железо (Legacy BIOS). Исходный код доступен на GitHub.</p>
+    </div>
+
+    <div style="background: rgba(0,0,0,0.4); border-radius: 1.5rem; padding: 1.2rem; margin-top: 1rem; text-align: center;">
+        <p><i class="fas fa-link"></i> <strong>Официальный сайт:</strong> <a href="https://cubeweb-lab.github.io/cubeweb.github.io/" style="color:#7ab9ff;" target="_blank">CubeWEB</a>  |  <a href="https://cubeweb-lab.github.io/cubeweb.github.io/cubeos.html" style="color:#7ab9ff;" target="_blank">CubeOS page</a>  |  <i class="fab fa-github"></i> <a href="https://github.com/cubeweb-lab/CubeOS" style="color:#7ab9ff;" target="_blank">GitHub</a></p>
+        <p style="margin-top: 6px;">Made with ❤️ by CubeDev — 64-bit ОС с трёхступенчатым загрузчиком, ATA драйвером и экспериментальным GUI.</p>
+        <div class="specs" style="display: inline-block; margin-top: 0.5rem;">
+            <i class="fas fa-terminal"></i> CubeOS v0.6-dev • Лицензия BSD 3-Clause • Copyright (c) 2026, CubeDev
+        </div>
+    </div>
+
+    <footer>
+        <i class="fas fa-cube"></i> CubeOS v0.5-dev / v0.6-dev · Образ для QEMU / VirtualBox<br>
+        Проект начат 27 января 2026. GUI — прототип, FAT32 в активной разработке.
+    </footer>
+</div>
+
+<script>
+    // ТЕРМИНАЛ-ТРЕНАЖЁР (полностью соответствует kernel.asm)
+    const outputDiv = document.getElementById('terminalOutput');
+    const inputField = document.getElementById('terminalInput');
+    const runBtn = document.getElementById('runCmdBtn');
+    
+    let uptimeTicks = 0;
+    const startTime = Date.now();
+    
+    // Симуляция random через rdtsc-подобное
+    let rngState = Math.floor(Math.random() * 0xffffffff);
+    function fastRandom() {
+        rngState = (rngState * 1103515245 + 12345) & 0xffffffff;
+        return rngState;
+    }
+    
+    function addToOutput(text, isCommand = false) {
+        const line = document.createElement('div');
+        line.className = 'terminal-line';
+        if (isCommand) {
+            line.innerHTML = `<span style="color:#4c9aff;">cubeos&gt;</span> ${escapeHtml(text)}`;
+        } else {
+            line.textContent = text;
+        }
+        outputDiv.appendChild(line);
+        outputDiv.scrollTop = outputDiv.scrollHeight;
+    }
+    
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    function processCommand(cmd) {
+        cmd = cmd.trim().toLowerCase();
+        
+        // help
+        if (cmd === 'help') {
+            addToOutput('Commands: cls, help, ver, about, reboot, shutdown, uptime, mem, cpu, dice, flip, gui, fat32, dir');
+        }
+        else if (cmd === 'ver') {
+            addToOutput('CubeOS version 0.6 (64-bit) + ATA + FAT32');
+        }
+        else if (cmd === 'about') {
+            addToOutput('       +--------------+');
+            addToOutput('      /              /|');
+            addToOutput('     /              / |');
+            addToOutput('    +--------------+  |');
+            addToOutput('    |              |  |');
+            addToOutput('    |   CUBEOS     |  |');
+            addToOutput('    |              |  |');
+            addToOutput('    |              |  +');
+            addToOutput('    |              | /');
+            addToOutput('    +--------------+');
+            addToOutput('');
+            addToOutput('   OS: CubeOS v0.6 (64-bit + ATA)');
+            addToOutput('   Shell: CubeOS Shell v6');
+            addToOutput('   CPU: x86_64 (Long Mode)');
+            addToOutput('   Memory: 128 MB (QEMU)');
+            addToOutput('   Bootloader: 3-stage (NASM)');
+        }
+        else if (cmd === 'uptime') {
+            const seconds = Math.floor((Date.now() - startTime) / 1000);
+            addToOutput(`Uptime: ${seconds} seconds`);
+        }
+        else if (cmd === 'mem') {
+            addToOutput('Memory: 128 MB (QEMU)');
+        }
+        else if (cmd === 'cpu') {
+            addToOutput('CPU: x86_64 with Long Mode support');
+        }
+        else if (cmd === 'dice') {
+            const roll = (fastRandom() % 6) + 1;
+            addToOutput(`Dice roll: ${roll}`);
+        }
+        else if (cmd === 'flip') {
+            const result = fastRandom() & 1 ? 'Heads!' : 'Tails!';
+            addToOutput(result);
+        }
+        else if (cmd === 'cls') {
+            outputDiv.innerHTML = '';
+            addToOutput('==============================');
+            addToOutput('     CubeOS v0.6 (ATA+FAT32)  ');
+            addToOutput('==============================');
+            addToOutput('Type \'help\' for available commands.');
+            addToOutput('---');
+        }
+        else if (cmd === 'reboot') {
+            addToOutput('Rebooting... (демо-режим, перезагрузка не выполняется)');
+        }
+        else if (cmd === 'shutdown') {
+            addToOutput('Shutting down... (демо-режим)');
+        }
+        else if (cmd === 'gui') {
+            addToOutput('Запуск графического интерфейса (прототип)...');
+            addToOutput('⚠️ GUI находится в стадии предварительного тестирования (alpha-testing coming soon).');
+            addToOutput('   Используйте стрелки для перемещения окна, ESC для выхода.');
+            addToOutput('   (В демо-режиме графический интерфейс не запускается)');
+        }
+        else if (cmd === 'fat32') {
+            addToOutput('FAT32: Initializing... OK');
+            addToOutput('FAT32 драйвер инициализирован. (парсинг в разработке)');
+        }
+        else if (cmd === 'dir') {
+            addToOutput('Directory of /:');
+            addToOutput('  [папка]  system/');
+            addToOutput('  [файл]   readme.txt');
+            addToOutput('  [файл]   kernel.sys');
+            addToOutput('  [файл]   cubeos.cfg');
+            addToOutput('(функция в разработке, данные демонстрационные)');
+        }
+        else if (cmd === '') {
+            // ничего
+        }
+        else {
+            addToOutput(`Unknown command. Type 'help'`);
+        }
+    }
+    
+    function runCommand() {
+        const cmd = inputField.value;
+        if (cmd.trim() === '') {
+            inputField.value = '';
+            return;
+        }
+        addToOutput(cmd, true);
+        processCommand(cmd);
+        inputField.value = '';
+    }
+    
+    runBtn.addEventListener('click', runCommand);
+    inputField.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            runCommand();
+        }
+    });
+    
+</script>
+</body>
+</html>
