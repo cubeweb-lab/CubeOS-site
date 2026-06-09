@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CubeOS — Основная ветка с GUI</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 800px; margin: 0 auto; }
+        .spec-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; }
+        .spec-card .spec-value { font-size: 2rem; font-weight: 900; color: var(--accent); display: block; }
+        .spec-card .spec-label { color: var(--text-dim); font-size: 0.9rem; margin-top: 0.3rem; }
+        .cmd-table { width: 100%; max-width: 600px; margin: 0 auto; border-collapse: collapse; }
+        .cmd-table th, .cmd-table td { padding: 0.7rem 1rem; border: 1px solid var(--border); text-align: left; }
+        .cmd-table th { background: var(--surface); color: var(--accent); }
+        .cmd-table td { color: var(--text-dim); }
+        .cmd-table code { color: var(--accent); background: var(--code-bg); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.9rem; }
+    </style>
+</head>
+<body data-theme="dark">
+    <nav>
+        <div class="nav-brand">
+            <a href="../index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--accent);">
+                <img src="../assets/logo.png" alt="CubeOS Logo" class="nav-logo">
+                <span>CubeOS</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../docs/" data-i18n="nav-docs">Документация</a></li>
+            <li><a href="../faq.html" data-i18n="nav-faq">FAQ</a></li>
+            <li><button id="lang-toggle" title="Switch language">EN</button></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" style="flex-direction: column; text-align: center; padding: 4rem 2rem 2rem; min-height: auto;">
+        <div class="version-badge" style="margin-bottom: 1rem;" data-i18n="main-badge">Main Branch</div>
+        <h1 style="font-size: 3rem; background: linear-gradient(135deg, var(--accent), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">CubeOS</h1>
+        <div class="hero-logo-wrapper animate animate-scale delay-1">
+            <img src="../assets/logo.png" alt="CubeOS Logo" class="hero-logo-float">
+        </div>
+        <p class="tagline" data-i18n="main-hero-title">Графическая операционная система</p>
+        <p style="color: var(--text-dim); max-width: 550px; margin: 0.5rem auto 2rem;" data-i18n="main-hero-desc">
+            Полноценная ОС с оконным менеджером, панелью задач, файловым менеджером, настройками и терминалом. Написана на Rust.
+        </p>
+        <div class="hero-buttons" style="justify-content: center;">
+            <a href="../iso/cubeos_v0.9.iso" class="btn btn-primary" data-i18n="main-download">Скачать ISO (CubeOS)</a>
+            <a href="../docs/" class="btn btn-secondary" data-i18n="main-guide">Инструкция по запуску</a>
+        </div>
+    </section>
+
+    <!-- Системные требования -->
+    <section style="padding: 2rem 2rem 4rem;">
+        <h2 class="animate" style="text-align: center; font-size: 2rem; margin-bottom: 2rem; color: var(--accent);" data-i18n="main-specs-title">Системные требования</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 700px; margin: 0 auto;">
+            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+                <h3 style="color: var(--accent); text-align: center; margin-bottom: 1.5rem; font-size: 1.2rem;" data-i18n="main-specs-min">Минимальные</h3>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="main-specs-ram">ОЗУ</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="main-specs-ram-min">19 MB</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="main-specs-cpu">Процессор</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="main-specs-cpu-min">x86_64 ~200 MHz</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="main-specs-gpu">Графика</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="main-specs-gpu-min">VESA 800×600</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="main-specs-disk">Диск</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="main-specs-disk-min">Не требуется</span>
+                    </div>
+                </div>
+            </div>
+            <div style="background: var(--surface); border: 1px solid var(--primary); border-radius: 12px; padding: 1.5rem; position: relative;">
+                <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.2rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;" data-i18n="main-specs-rec-badge">Рекомендуется</div>
+                <h3 style="color: var(--accent); text-align: center; margin-bottom: 1.5rem; margin-top: 0.5rem; font-size: 1.2rem;" data-i18n="main-specs-rec">Рекомендуемые</h3>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="main-specs-ram">ОЗУ</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="main-specs-ram-rec">64 MB</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="main-specs-cpu">Процессор</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="main-specs-cpu-rec">x86_64 500+ MHz (2+ ядра)</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="main-specs-gpu">Графика</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="main-specs-gpu-rec">VESA 1024×768</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="main-specs-disk">Диск</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="main-specs-disk-rec">ATA с FAT32</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Возможности -->
+    <section class="features">
+        <h2 class="animate" data-i18n="main-features-title">Возможности</h2>
+        <div class="feature-grid">
+            <div class="feature-card animate animate-scale delay-1">
+                <div class="feature-icon icon-gui"></div>
+                <h3 data-i18n="main-feat-gui">Графический интерфейс</h3>
+                <p data-i18n="main-feat-gui-desc">Оконный менеджер с перетаскиванием, сворачиванием и закрытием окон. Панель задач с кнопками окон. Меню «Пуск» с быстрым запуском.</p>
+            </div>
+            <div class="feature-card animate animate-scale delay-2">
+                <div class="feature-icon icon-disk"></div>
+                <h3 data-i18n="main-feat-fat32">Файловая система FAT32</h3>
+                <p data-i18n="main-feat-fat32-desc">Полная поддержка чтения и записи. Навигация по папкам, создание/удаление файлов и директорий.</p>
+            </div>
+            <div class="feature-card animate animate-scale delay-3">
+                <div class="feature-icon icon-gear"></div>
+                <h3 data-i18n="main-feat-ata">Драйвер ATA</h3>
+                <p data-i18n="main-feat-ata-desc">Работа с жёсткими дисками через PIO-режим. Поддержка реального железа и эмуляции в QEMU.</p>
+            </div>
+            <div class="feature-card animate animate-scale delay-4">
+                <div class="feature-icon icon-terminal"></div>
+                <h3 data-i18n="main-feat-terminal">Встроенный терминал</h3>
+                <p data-i18n="main-feat-terminal-desc">Полноценный shell с историей команд. Цветовые темы. HEX-ввод для своих цветов.</p>
+            </div>
+            <div class="feature-card animate animate-scale delay-5">
+                <div class="feature-icon icon-rust"></div>
+                <h3 data-i18n="main-feat-settings">Настройки системы</h3>
+                <p data-i18n="main-feat-settings-desc">Смена обоев (сплошные цвета и BMP). Переключение тем оформления. Информация о системе.</p>
+            </div>
+            <div class="feature-card animate animate-scale delay-6">
+                <div class="feature-icon icon-power"></div>
+                <h3 data-i18n="main-feat-apps">Приложения</h3>
+                <p data-i18n="main-feat-apps-desc">Калькулятор, текстовые команды. Защищённые BSOD и GSOD при сбоях.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Команды терминала -->
+    <section style="padding: 2rem 2rem 4rem;">
+        <h2 class="animate" style="text-align: center; font-size: 2rem; margin-bottom: 2rem; color: var(--accent);" data-i18n="main-cmds-title">Команды терминала</h2>
+        <table class="cmd-table">
+            <tr><th data-i18n="main-cmds-name">Команда</th><th data-i18n="main-cmds-desc">Описание</th></tr>
+            <tr><td><code>help</code></td><td data-i18n="main-cmds-help">Список всех команд</td></tr>
+            <tr><td><code>ver</code></td><td data-i18n="main-cmds-ver">Версия системы</td></tr>
+            <tr><td><code>mem</code></td><td data-i18n="main-cmds-mem">Информация о памяти</td></tr>
+            <tr><td><code>cls</code> / <code>clear</code></td><td data-i18n="main-cmds-cls">Очистить экран</td></tr>
+            <tr><td><code>dir</code> / <code>ls</code></td><td data-i18n="main-cmds-dir">Список файлов (если примонтирован диск)</td></tr>
+            <tr><td><code>cd &lt;папка&gt;</code></td><td data-i18n="main-cmds-cd">Перейти в папку</td></tr>
+            <tr><td><code>cubefetch</code></td><td data-i18n="main-cmds-fetch">Информация о системе</td></tr>
+            <tr><td><code>theme &lt;имя&gt;</code></td><td data-i18n="main-cmds-theme">Сменить тему терминала</td></tr>
+            <tr><td><code>crash &lt;0-31&gt;</code></td><td data-i18n="main-cmds-crash">Вызвать исключение (для тестов)</td></tr>
+            <tr><td><code>shutdown</code></td><td data-i18n="main-cmds-shutdown">Выключить ПК (ACPI)</td></tr>
+        </table>
+    </section>
+
+    <!-- Скриншоты -->
+    <section class="screenshots">
+        <h2 class="animate" data-i18n="screenshots-title">Скриншоты</h2>
+        <div class="screenshot-grid">
+            <figure class="animate animate-left delay-1">
+                <img src="../screenshots/cubeos-desktop.png" alt="Desktop" loading="lazy">
+                <figcaption data-i18n="main-scr-desktop">Рабочий стол с GUI и панелью задач</figcaption>
+            </figure>
+            <figure class="animate animate-scale delay-2">
+                <img src="../screenshots/cubeos-settings.png" alt="Settings" loading="lazy">
+                <figcaption data-i18n="main-scr-settings">Окно настроек</figcaption>
+            </figure>
+            <figure class="animate animate-right delay-3">
+                <img src="../screenshots/cubeos-terminal.png" alt="Terminal" loading="lazy">
+                <figcaption data-i18n="main-scr-terminal">Терминал с выбором цветовой темы</figcaption>
+            </figure>
+            <figure class="animate animate-right delay-3">
+                <img src="../screenshots/cubefetch.png" alt="CubeFetch" loading="lazy">
+                <figcaption data-i18n="main-scr-fetch">CubeFetch</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <footer>
+        <p data-i18n="footer-text">CubeOS © 2026 — CubeDev</p>
+    </footer>
+
+    <script src="../js/theme.js"></script>
+    <script src="../js/i18n.js"></script>
+</body>
+</html>

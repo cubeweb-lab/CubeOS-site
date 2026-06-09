@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="doc-title">Документация — CubeOS</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .doc-container {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+        .doc-loading {
+            text-align: center;
+            color: var(--text-dim);
+            padding: 4rem;
+            font-size: 1.2rem;
+        }
+        .doc-error {
+            text-align: center;
+            color: #e74c3c;
+            padding: 2rem;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 8px;
+        }
+        /* Markdown styles */
+        .doc-content h1 { font-size: 2rem; margin: 2rem 0 1rem; color: var(--accent); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+        .doc-content h1:first-child { margin-top: 0; }
+        .doc-content h2 { font-size: 1.5rem; margin: 2rem 0 0.8rem; color: var(--text-bright); }
+        .doc-content h3 { font-size: 1.2rem; margin: 1.5rem 0 0.5rem; color: var(--accent); }
+        .doc-content p { margin: 0.8rem 0; line-height: 1.7; color: var(--text-dim); }
+        .doc-content ul, .doc-content ol { margin: 0.8rem 0; padding-left: 2rem; color: var(--text-dim); }
+        .doc-content li { margin: 0.3rem 0; }
+        .doc-content code { background: var(--code-bg); color: var(--accent); padding: 0.2rem 0.4rem; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.9rem; }
+        .doc-content pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; overflow-x: auto; margin: 1rem 0; }
+        .doc-content pre code { background: none; padding: 0; }
+        .doc-content table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        .doc-content th, .doc-content td { border: 1px solid var(--border); padding: 0.6rem 1rem; text-align: left; }
+        .doc-content th { background: var(--surface-hover); color: var(--accent); font-weight: 600; }
+        .doc-content td { color: var(--text-dim); }
+        .doc-content blockquote { border-left: 4px solid var(--primary); padding: 0.5rem 1rem; margin: 1rem 0; background: var(--surface-hover); border-radius: 0 8px 8px 0; color: var(--text-dim); }
+        .doc-content a { color: var(--accent); text-decoration: underline; }
+        .doc-content hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+        .doc-content strong { color: var(--text-bright); }
+    </style>
+</head>
+<body data-theme="dark">
+    <nav>
+        <div class="nav-brand">
+            <a href="../index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--accent);">
+                <img src="../assets/logo.png" alt="CubeOS Logo" class="nav-logo">
+                <span>CubeOS</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Главная</a></li>
+            <li><a href="../faq.html">FAQ</a></li>
+            <li><button id="lang-toggle" title="Switch language">EN</button></li>
+        </ul>
+    </nav>
+
+    <div class="doc-container">
+        <div id="doc-content" class="doc-loading">Загрузка документации...</div>
+    </div>
+
+    <footer>
+        <p>CubeOS © 2026 — CubeDev</p>
+    </footer>
+
+    <script src="../js/theme.js"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/markdown-parser.js"></script>
+    <script src="../js/doc-loader.js"></script>
+</body>
+</html>
