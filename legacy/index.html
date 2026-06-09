@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CubeOS Legacy — Терминальная версия</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 800px; margin: 0 auto; }
+        .spec-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; }
+        .spec-card .spec-value { font-size: 2rem; font-weight: 900; color: var(--accent); display: block; }
+        .spec-card .spec-label { color: var(--text-dim); font-size: 0.9rem; margin-top: 0.3rem; }
+        .cmd-table { width: 100%; max-width: 600px; margin: 0 auto; border-collapse: collapse; }
+        .cmd-table th, .cmd-table td { padding: 0.7rem 1rem; border: 1px solid var(--border); text-align: left; }
+        .cmd-table th { background: var(--surface); color: var(--accent); }
+        .cmd-table td { color: var(--text-dim); }
+        .cmd-table code { color: var(--accent); background: var(--code-bg); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.9rem; }
+    </style>
+</head>
+<body data-theme="dark">
+    <nav>
+        <div class="nav-brand">
+            <a href="../index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--accent);">
+                <img src="../assets/logo.png" alt="CubeOS Logo" class="nav-logo">
+                <span>CubeOS</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../docs/" data-i18n="nav-docs">Документация</a></li>
+            <li><a href="../faq.html" data-i18n="nav-faq">FAQ</a></li>
+            <li><button id="lang-toggle" title="Switch language">EN</button></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" style="flex-direction: column; text-align: center; padding: 4rem 2rem 2rem; min-height: auto;">
+        <div class="version-badge legacy-badge" style="margin-bottom: 1rem;" data-i18n="legacy-badge">Legacy</div>
+        <h1 style="font-size: 3rem; background: linear-gradient(135deg, var(--accent), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">CubeOS Legacy</h1>
+        <div class="hero-logo-wrapper animate animate-scale delay-2" style="margin-top: 2rem;">
+            <img src="../assets/logo.png" alt="CubeOS Legacy Logo" class="hero-logo-float-legacy">
+        </div>
+        <p class="tagline" data-i18n="legacy-hero-title">Терминальная операционная система</p>
+        <p style="color: var(--text-dim); max-width: 550px; margin: 0.5rem auto 2rem;" data-i18n="legacy-hero-desc">
+            Минималистичная версия CubeOS — только терминал в VESA-графике. Быстрая загрузка, низкое потребление памяти, полный набор команд.
+        </p>
+        <div class="hero-buttons" style="justify-content: center;">
+            <a href="../iso/cubeos-legacy_v0.9-dev.iso" class="btn btn-primary" data-i18n="legacy-download">Скачать ISO (Legacy)</a>
+            <a href="../docs/" class="btn btn-secondary" data-i18n="legacy-guide">Инструкция по запуску</a>
+        </div>
+    </section>
+
+    <!-- Системные требования -->
+    <section style="padding: 2rem 2rem 4rem;">
+        <h2 class="animate" style="text-align: center; font-size: 2rem; margin-bottom: 2rem; color: var(--accent);" data-i18n="legacy-specs-title">Системные требования</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 700px; margin: 0 auto;">
+            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+                <h3 style="color: var(--accent); text-align: center; margin-bottom: 1.5rem; font-size: 1.2rem;" data-i18n="legacy-specs-min">Минимальные</h3>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="legacy-specs-ram">ОЗУ</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="legacy-specs-ram-min">5 MB</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="legacy-specs-cpu">Процессор</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="legacy-specs-cpu-min">x86_64 ~50 MHz</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="legacy-specs-gpu">Графика</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="legacy-specs-gpu-min">VESA 800×600</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="legacy-specs-disk">Диск</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="legacy-specs-disk-min">Не требуется</span>
+                    </div>
+                </div>
+            </div>
+            <div style="background: var(--surface); border: 1px solid var(--primary); border-radius: 12px; padding: 1.5rem; position: relative;">
+                <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.2rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;" data-i18n="legacy-specs-rec-badge">Рекомендуется</div>
+                <h3 style="color: var(--accent); text-align: center; margin-bottom: 1.5rem; margin-top: 0.5rem; font-size: 1.2rem;" data-i18n="legacy-specs-rec">Рекомендуемые</h3>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="legacy-specs-ram">ОЗУ</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="legacy-specs-ram-rec">32 MB</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="legacy-specs-cpu">Процессор</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="legacy-specs-cpu-rec">x86_64 100+ MHz</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="legacy-specs-gpu">Графика</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="legacy-specs-gpu-rec">VESA 1024×768</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border);">
+                        <span style="color: var(--text-dim);" data-i18n="legacy-specs-disk">Диск</span>
+                        <span style="color: var(--text); font-weight: 600;" data-i18n="legacy-specs-disk-rec">ATA с FAT32</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Возможности -->
+    <section class="features">
+        <h2 class="animate" data-i18n="legacy-features-title">Возможности</h2>
+        <div class="feature-grid">
+            <div class="feature-card animate animate-scale delay-1">
+                <div class="feature-icon icon-terminal"></div>
+                <h3 data-i18n="legacy-feat-terminal">Терминал в VESA</h3>
+                <p data-i18n="legacy-feat-terminal-desc">Полноценный терминал в графическом режиме. Цветовые темы.</p>
+            </div>
+            <div class="feature-card animate animate-scale delay-2">
+                <div class="feature-icon icon-disk"></div>
+                <h3 data-i18n="legacy-feat-fat32">FAT32 с полной поддержкой</h3>
+                <p data-i18n="legacy-feat-fat32-desc">Чтение и запись файлов, создание и удаление папок, навигация по директориям.</p>
+            </div>
+            <div class="feature-card animate animate-scale delay-3">
+                <div class="feature-icon icon-power"></div>
+                <h3 data-i18n="legacy-feat-acpi">ACPI Shutdown</h3>
+                <p data-i18n="legacy-feat-acpi-desc">Корректное выключение компьютера через ACPI.</p>
+            </div>
+            <div class="feature-card animate animate-scale delay-4">
+                <div class="feature-icon icon-rust"></div>
+                <h3 data-i18n="legacy-feat-kbd">104-клавишная клавиатура</h3>
+                <p data-i18n="legacy-feat-kbd-desc">Поддержка всех стандартных клавиш. Shift для заглавных букв. NumPad.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Команды терминала -->
+    <section style="padding: 2rem 2rem 4rem;">
+        <h2 class="animate" style="text-align: center; font-size: 2rem; margin-bottom: 2rem; color: var(--accent);" data-i18n="legacy-cmds-title">Команды терминала</h2>
+        <table class="cmd-table">
+            <tr><th data-i18n="legacy-cmds-name">Команда</th><th data-i18n="legacy-cmds-desc">Описание</th></tr>
+            <tr><td><code>help</code></td><td data-i18n="legacy-cmds-help">Список команд</td></tr>
+            <tr><td><code>ver</code></td><td data-i18n="legacy-cmds-ver">Версия системы</td></tr>
+            <tr><td><code>mem</code></td><td data-i18n="legacy-cmds-mem">Информация о памяти</td></tr>
+            <tr><td><code>cls</code> / <code>clear</code></td><td data-i18n="legacy-cmds-cls">Очистить экран</td></tr>
+            <tr><td><code>dir</code></td><td data-i18n="legacy-cmds-dir">Список файлов и папок</td></tr>
+            <tr><td><code>cd &lt;папка&gt;</code></td><td data-i18n="legacy-cmds-cd">Перейти в папку</td></tr>
+            <tr><td><code>read &lt;файл&gt;</code></td><td data-i18n="legacy-cmds-read">Прочитать файл</td></tr>
+            <tr><td><code>write &lt;файл&gt;</code></td><td data-i18n="legacy-cmds-write">Записать в файл</td></tr>
+            <tr><td><code>mkdir &lt;имя&gt;</code></td><td data-i18n="legacy-cmds-mkdir">Создать папку</td></tr>
+            <tr><td><code>del &lt;файл&gt;</code></td><td data-i18n="legacy-cmds-del">Удалить файл</td></tr>
+            <tr><td><code>theme &lt;имя&gt;</code></td><td data-i18n="legacy-cmds-theme">Сменить тему</td></tr>
+            <tr><td><code>cubefetch</code></td><td data-i18n="legacy-cmds-fetch">Информация о системе</td></tr>
+            <tr><td><code>shutdown</code></td><td data-i18n="legacy-cmds-shutdown">Выключить ПК</td></tr>
+            <tr><td><code>crash &lt;0-31&gt;</code></td><td data-i18n="legacy-cmds-crash">Вызвать исключение (тест)</td></tr>
+        </table>
+    </section>
+
+    <!-- Скриншоты -->
+    <section class="screenshots">
+        <h2 class="animate" data-i18n="screenshots-title">Скриншоты</h2>
+        <div class="screenshot-grid">
+            <figure class="animate animate-left delay-1">
+                <img src="../screenshots/legacy-terminal.png" alt="Legacy Terminal" loading="lazy">
+                <figcaption data-i18n="legacy-scr-system">Система в работе</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- Сравнение -->
+    <section style="padding: 2rem 2rem 4rem; text-align: center;">
+        <h2 class="animate" style="font-size: 2rem; margin-bottom: 2rem; color: var(--accent);" data-i18n="legacy-diff-title">Отличия от основной ветки</h2>
+        <div style="max-width: 700px; margin: 0 auto;">
+            <table class="cmd-table">
+                <tr><th data-i18n="legacy-diff-char">Характеристика</th><th data-i18n="legacy-diff-main">CubeOS (Main)</th><th data-i18n="legacy-diff-legacy">CubeOS Legacy</th></tr>
+                <tr><td data-i18n="legacy-diff-ui">Интерфейс</td><td data-i18n="legacy-diff-ui-main">GUI с окнами</td><td data-i18n="legacy-diff-ui-legacy">Только терминал</td></tr>
+                <tr><td data-i18n="legacy-diff-ram">Потребление ОЗУ</td><td data-i18n="legacy-diff-ram-main">~19 MB</td><td data-i18n="legacy-diff-ram-legacy">~5 MB</td></tr>
+                <tr><td data-i18n="legacy-diff-boot">Скорость загрузки</td><td data-i18n="legacy-diff-boot-main">~3 сек</td><td data-i18n="legacy-diff-boot-legacy">~1 сек</td></tr>
+                <tr><td data-i18n="legacy-diff-mouse">Мышь</td><td data-i18n="legacy-diff-mouse-main">✅</td><td data-i18n="legacy-diff-mouse-legacy">✅</td></tr>
+                <tr><td data-i18n="legacy-diff-fm">Файловый менеджер</td><td data-i18n="legacy-diff-fm-main">В разработке</td><td data-i18n="legacy-diff-fm-legacy">Команды</td></tr>
+                <tr><td data-i18n="legacy-diff-themes">Обои и темы</td><td data-i18n="legacy-diff-themes-main">✅</td><td data-i18n="legacy-diff-themes-legacy">Только темы терминала</td></tr>
+                <tr><td data-i18n="legacy-diff-acpi">ACPI</td><td data-i18n="legacy-diff-acpi-main">В разработке</td><td data-i18n="legacy-diff-acpi-legacy">✅</td></tr>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <p>CubeOS © 2026 — CubeDev</p>
+    </footer>
+
+    <script src="../js/theme.js"></script>
+</body>
+</html>
